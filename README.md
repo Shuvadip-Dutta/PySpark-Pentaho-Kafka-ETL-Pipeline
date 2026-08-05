@@ -210,6 +210,117 @@ Install the required Python packages:
 pip install -r requirements.txt
 ```
 
+## 🐘 PostgreSQL Configuration
+
+This project uses PostgreSQL as the destination database for the ETL pipeline.
+
+### Option 1: Using Docker (Recommended)
+
+The Docker Compose file automatically starts a PostgreSQL container.
+
+Default configuration:
+
+```text
+Host: localhost
+Port: 5432 (or 5433 if changed in docker-compose.yml)
+Database: pyspark
+Username: postgres
+Password: 834585
+```
+
+Connect using pgAdmin or any PostgreSQL client with the above credentials.
+
+---
+
+### Option 2: Local PostgreSQL Installation
+
+If you are using a locally installed PostgreSQL server, update the database configuration in `config.py`:
+
+```python
+POSTGRES = {
+    "url": "jdbc:postgresql://localhost:5432/pyspark",
+    "driver": "org.postgresql.Driver",
+    "user": "YOUR_USERNAME",
+    "password": "YOUR_PASSWORD",
+}
+```
+
+Also update the following inside `consumer_etl.py` if needed:
+
+```python
+DB_CONFIG = {
+    "url": "jdbc:postgresql://localhost:5432/pyspark",
+    "driver": "org.postgresql.Driver",
+    "user": "YOUR_USERNAME",
+    "password": "YOUR_PASSWORD",
+}
+```
+
+## 🖥️ Connect PostgreSQL with pgAdmin
+
+If you're using **Docker PostgreSQL**, you need to create a new server in pgAdmin.
+
+1. Open **pgAdmin**.
+2. Right-click **Servers** → **Register** → **Server**.
+
+### General
+
+```text
+Name: PySpark PostgreSQL
+```
+
+### Connection 
+
+```text
+Host name/address: localhost
+Port: 5433
+Maintenance database: postgres
+Username: postgres
+Password: <your_password>
+```
+
+> **Note:** Replace `<your_password>` with the password configured in your `docker-compose.yml`.
+
+Click **Save**.
+
+after running the 
+```bash
+docker compose up -d
+```
+and after creating the sql tabel
+
+You should see:
+
+```
+Servers
+└── PySpark PostgreSQL
+    └── Databases
+        └── pyspark
+            └── Schemas
+                └── public
+                    └── Tables
+                        └── furniture_sales
+```
+
+If the table is not visible:
+
+- Right-click **Tables**
+- Click **Refresh**
+
+You can verify the imported data by opening the **Query Tool** and running:
+
+```sql
+SELECT * FROM furniture_sales;
+```
+
+or
+
+```sql
+SELECT COUNT(*) FROM furniture_sales;
+```
+
+---
+
 ## Step 1
 
 Start Docker containers
