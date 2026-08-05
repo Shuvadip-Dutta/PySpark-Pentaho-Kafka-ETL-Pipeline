@@ -1,0 +1,5 @@
+pyspark==3.5.4
+kafka-python
+pandas
+psycopg2-binary
+findspark
