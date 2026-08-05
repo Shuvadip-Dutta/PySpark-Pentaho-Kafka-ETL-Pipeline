@@ -210,6 +210,54 @@ Install the required Python packages:
 pip install -r requirements.txt
 ```
 
+## 🐘 PostgreSQL Configuration
+
+This project uses PostgreSQL as the destination database for the ETL pipeline.
+
+### Option 1: Using Docker (Recommended)
+
+The Docker Compose file automatically starts a PostgreSQL container.
+
+Default configuration:
+
+```text
+Host: localhost
+Port: 5432 (or 5433 if changed in docker-compose.yml)
+Database: pyspark
+Username: postgres
+Password: 834585
+```
+
+Connect using pgAdmin or any PostgreSQL client with the above credentials.
+
+---
+
+### Option 2: Local PostgreSQL Installation
+
+If you are using a locally installed PostgreSQL server, update the database configuration in `config.py`:
+
+```python
+POSTGRES = {
+    "url": "jdbc:postgresql://localhost:5432/pyspark",
+    "driver": "org.postgresql.Driver",
+    "user": "YOUR_USERNAME",
+    "password": "YOUR_PASSWORD",
+}
+```
+
+Also update the following inside `consumer_etl.py` if needed:
+
+```python
+DB_CONFIG = {
+    "url": "jdbc:postgresql://localhost:5432/pyspark",
+    "driver": "org.postgresql.Driver",
+    "user": "YOUR_USERNAME",
+    "password": "YOUR_PASSWORD",
+}
+```
+
+---
+
 ## Step 1
 
 Start Docker containers
