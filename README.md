@@ -256,6 +256,69 @@ DB_CONFIG = {
 }
 ```
 
+## 🖥️ Connect PostgreSQL with pgAdmin
+
+If you're using **Docker PostgreSQL**, you need to create a new server in pgAdmin.
+
+1. Open **pgAdmin**.
+2. Right-click **Servers** → **Register** → **Server**.
+
+### General
+
+```text
+Name: PySpark PostgreSQL
+```
+
+### Connection 
+
+```text
+Host name/address: localhost
+Port: 5433
+Maintenance database: postgres
+Username: postgres
+Password: <your_password>
+```
+
+> **Note:** Replace `<your_password>` with the password configured in your `docker-compose.yml`.
+
+Click **Save**.
+
+after running the 
+```bash
+docker compose up -d
+```
+and after creating the sql tabel
+
+You should see:
+
+```
+Servers
+└── PySpark PostgreSQL
+    └── Databases
+        └── pyspark
+            └── Schemas
+                └── public
+                    └── Tables
+                        └── furniture_sales
+```
+
+If the table is not visible:
+
+- Right-click **Tables**
+- Click **Refresh**
+
+You can verify the imported data by opening the **Query Tool** and running:
+
+```sql
+SELECT * FROM furniture_sales;
+```
+
+or
+
+```sql
+SELECT COUNT(*) FROM furniture_sales;
+```
+
 ---
 
 ## Step 1
