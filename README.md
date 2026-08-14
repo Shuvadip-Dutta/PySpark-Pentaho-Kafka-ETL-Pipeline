@@ -483,7 +483,7 @@ You can add screenshots here:
 **Shuvadip Dutta**
 
 - GitHub: https://github.com/Shuvadip-Dutta
-- LinkedIn: https://www.linkedin.com/in/shuvadip-dutta/
+- LinkedIn: https://www.linkedin.com/in/shuvadip-dutta-b6785022b
 
 ---
 
